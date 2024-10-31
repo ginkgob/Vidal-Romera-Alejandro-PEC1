@@ -1,0 +1,67 @@
+---
+title: "PEC1 Anàlisi de dades òmiques"
+author: "Alex Vidal Romera"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(SummarizedExperiment)
+
+setwd("/home/alex/uoc/2_analisi_dades_omiques/PAC1/")
+```
+
+```{r}
+
+#Establecemos la primera columna como indicador de filas row.names = 1
+data<-read.csv("human_cachexia.csv", row.names = 1)
+
+#Observamos la estructura de los datos
+str(data)
+
+#Todas las variables excepto las dos primeras columnas són numéricas. Comprovamos que valores puede tomar la columna 2 Muscle.loss
+unique(data$Muscle.loss)
+
+#Vemos que los datos pueden ser "Cachexic" o "Control". Procedemos a convertir la columna en factor para que R pueda manejar mejor los datos categóricos
+
+data$Muscle.loss <- as.factor(data$Muscle.loss)
+
+#Para crear el contenedor de tipo SummarizedExperiment necesitamos organizar nuestra información en una matriz de datos y una tabla para metadatos
+#Matriz de datos
+assays_data <- as.matrix(data[, -1])
+
+#Tabla de metadatos. Seleccionamos los nombres de todas las filas y columnas.
+#Creamos un DataFrame de Bioconductor para trabajar mejor
+row_data <- DataFrame(
+  PatiendId = rownames(data),
+  MuscleLoss = data$Muscle.loss
+)
+
+col_data <- DataFrame(
+  Metabolites = colnames(assays_data)
+)
+
+#Creamos el objeto que requiere assays (la matriz de datos), rowRanges (Opcional, info sobre las filas) y colData (información sobre las columnas)
+se <- SummarizedExperiment(assays = SimpleList(counts = assays_data), rowData = row_data, colData = col_data)
+
+print(se)
+
+#Guardamos los metadatos que nos interesan 
+metadata(se) <-list(
+  project = "PEC1 Analisis de datos omicos",
+  dataset_description = "Concentraciones de ciertos metabolitos en pacientes con caquexia y pacientes control"
+)
+
+metadata(se)
+
+#Exploramos el dataset para proporcionar una visión general
+dim(se)
+rownames(se)
+table(rowData(se)$MuscleLoss)
+sum(is.na(assay(se)))
+summary(assay(se))
+par(mar=c(14, 3, 1, 1))
+boxplot(assay(se), main="Distribución de los metabolitos", las=2, cex.axis=0.5)
+```
