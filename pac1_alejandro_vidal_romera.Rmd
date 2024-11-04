@@ -203,3 +203,5 @@ En aquesta prova s'ha escollit el conjunt de dades *human_cachexia*, que recull 
 La principal limitació de l'estudi és que no s'ha pogut determinar l'origen de les dades i, per tant, no s'ha pogut conèixer la manera en que s'han recollit les dades ni el tractament que han patit les mostres per tal d'obtenir-les. Això porta al fet que els resultats obtinguts no siguin rastrejables ni reproduïbles.
 
 Tot i això, el treball amb el conjunt de dades ha estat possible així com l'exploració d'aquest, que ens ha permès assolir els objectius presentats a la prova.
+
+Al següent repositori es pot trobar tota la informació sobre la prova realitzada [https://github.com/ginkgob/Vidal-Romera-Alejandro-PEC1](https://github.com/ginkgob/Vidal-Romera-Alejandro-PEC1).
