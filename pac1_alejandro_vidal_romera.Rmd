@@ -16,13 +16,14 @@ header-includes:
   - \usepackage{setspace}
   - \onehalfspacing
   - \usepackage{fancyhdr}
-  - \fancyhead[c]{Àlex Vidal Romera - PEC1 Anàlisi de dades òmiques}
+  - \fancyhead[c]{Àlex Vidal Romera}
   - \pagestyle{fancy}
   - \setlength{\headheight}{22.5pt}
   - \renewcommand{\contentsname}{}
 ---
 
 ```{r setup, include=FALSE}
+knitr::knit_hooks$set(purl = knitr::hook_purl)
 knitr::opts_chunk$set(echo = TRUE)
 
 library(SummarizedExperiment)
@@ -110,7 +111,7 @@ Aquesta exploració conté les dimensions del conjunt de dades, la quantitat de 
 \
 
 ```{r readData, echo=FALSE}
-data<-read.csv("/home/alex/uoc/2_analisi_dades_omiques/PAC1/human_cachexia.csv", row.names = 1)
+data<-read.csv("/home/alex/uoc/2_analisi_dades_omiques/PAC1/Vidal-Romera-Alejandro-PEC1/human_cachexia.csv", row.names = 1)
 ```
 
 Per tal de complir amb els objectius plantejats a la prova s'ha realitzat un pre-anàlisi del conjunt de dades. Aquest pre-anàlisi ens ajuda a definir l'estructura de les dades i altres característiques d'aquestes.
@@ -165,6 +166,9 @@ metadata(se) <-list(
 )
 
 metadata(se)
+
+# Guardem el fitxer tal com es requereix a la prova
+save(se, file = "SummarizedExperiment_data.Rda")
 ```
 
 Per acabar, s'explora l'objecte *se* creat anteriorment. Comprovem les dimensions del conjunt de dades, la quantitat de pacients a cada grup experimental, el nombre de valors nuls, una descripció estadística de les dades de cada metabòlit (mitja, mitjana, quartils, etc.) i una representació gràfica dels resultats.
@@ -204,4 +208,4 @@ La principal limitació de l'estudi és que no s'ha pogut determinar l'origen de
 
 Tot i això, el treball amb el conjunt de dades ha estat possible així com l'exploració d'aquest, que ens ha permès assolir els objectius presentats a la prova.
 
-Al següent repositori es pot trobar tota la informació sobre la prova realitzada [https://github.com/ginkgob/Vidal-Romera-Alejandro-PEC1](https://github.com/ginkgob/Vidal-Romera-Alejandro-PEC1).
+Al següent repositori es pot trobar tota la informació sobre la prova realitzada: [https://github.com/ginkgob/Vidal-Romera-Alejandro-PEC1](https://github.com/ginkgob/Vidal-Romera-Alejandro-PEC1).
